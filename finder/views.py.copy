@@ -1,0 +1,43 @@
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.template import loader
+from .models import Product
+from .management.commands.populate_db import strip_accents
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
+# Create your views here.
+def index(request):
+    template = loader.get_template('finder/main_page.html')
+    return HttpResponse(template.render(request=request))
+
+
+def search(request):
+    query = request.GET.get('query')    
+    stripped_query = strip_accents(query)
+    if not query:
+        products_list= Product.objects.all()        
+    else:        
+        products_list = Product.objects.filter(name__icontains=stripped_query)
+    if not products_list.exists():
+        products_list = Product.objects.filter(brand__icontains=stripped_query)
+
+    title = "Choissisez le produit qui correspond à votre demande:  %s" % query
+
+    paginator = Paginator(products_list, 9)
+    page = request.GET.get('page',1)
+
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:        
+        products = paginator.page(1)
+    except EmptyPage:        
+        products = paginator.page(paginator.num_pages)
+
+    context = {
+        'products': products,
+        'title': title,
+        'paginate': True,
+        'query' : stripped_query
+    }
+    return render(request, 'finder/search.html', context)
+ 

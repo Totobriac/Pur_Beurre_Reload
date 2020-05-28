@@ -1,0 +1,89 @@
+{% extends 'finder/base.html' %}
+
+{% block content %}
+<div>
+    <header class="nav_masthead" style="overflow: auto;">
+
+        <div class="col-lg-12">
+            <hr>
+            <h2 class="intro-text text-center" style="color: beige;">{{product.real_name}}<br>
+                <hr class="divider1 my-1" />{{product.real_brand}}</h2>
+            <hr>
+        </div>
+    </header>
+    <div>
+
+        <div class="container-fluid h-100" style="background-color: #E8A75D;">
+
+            <div class="text-center">
+                <img class="mt-5 img-thumbnail " src="{{ product.picture }}">
+            </div>
+
+            <div class="text-center pt-5 pb-3">
+                <a class="btn p-2 rounded" href="{% url 'finder:substitute' product.id %}">Cherchez un subsitut à ce
+                    produit</a>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 ml-auto text-center mt-5">
+                    <img src="/static/finder/img/nutriscore-{{ product.nutrition_grade}}.svg"
+                        alt="Note nutritionnelle NutriScore : E" style="margin-bottom:1rem;max-width:100%"><br>
+                </div>
+                <div class="col-lg-6 ml-auto mt-5">
+                    <h4>Repères nutritionnels pour 100 g en quantité modérée </h4>
+
+                    {% if product.fat < 3 %}
+                    <img src="/static/finder/img/low.svg" class="nutrition">{{product.fat}} <b>Matières grasses /
+                        Lipides</b> en faible quantité<br>
+                    {% elif product.fat >= 3 and product.fat <= 20 %}
+                    <img src="/static/finder/img/moderate.svg" class="nutrition">{{product.fat}} <b>Matières grasses /
+                        Lipides</b> en quantité modérée<br>
+                    {% else %}
+                    <img src="/static/finder/img/high.svg" class="nutrition">{{product.fat}} <b>Matières grasses /
+                        Lipides</b> en quantité élevée<br>
+                    {% endif %}
+
+                    {% if product.satured_fat <= 1.5 %}
+                    <img src="/static/finder/img/low.svg" class="nutrition">{{product.satured_fat}} <b>Acides gras
+                        saturés</b> en faible quantité<br>
+                    {% elif product.satured_fat > 1.5 and product.satured_fat <= 5 %}
+                    <img src="/static/finder/img/moderate.svg" class="nutrition">{{product.satured_fat}} <b>Acides gras
+                        saturés</b> en quantité modérée<br>
+                    {% else %}
+                    <img src="/static/finder/img/high.svg" class="nutrition">{{product.satured_fat}} <b>Acides gras
+                        saturés</b> en quantité élevée<br>
+                    {% endif %}
+
+                    {% if product.sugars <= 5 %}
+                    <img src="/static/finder/img/low.svg" class="nutrition">{{product.sugars}} <b>Sucres</b> en faible
+                    quantité<br>
+                    {% elif product.sugars > 5 and product.sugars <= 12.5 %}
+                    <img src="/static/finder/img/moderate.svg" class="nutrition">{{product.sugars}} <b>Sucres</b> en
+                    quantité modérée<br>
+                    {% else %}
+                    <img src="/static/finder/img/high.svg" class="nutrition">{{product.sugars}} <b>Sucres</b> en
+                    quantité élevée<br>
+                    {% endif %}
+
+                    {% if product.salt <= 0.3 %}
+                    <img src="/static/finder/img/low.svg" class="nutrition">{{product.salt}} <b>Sel</b> en faible
+                    quantité<br>
+                    {% elif product.salt > 0.3 and product.salt <= 1.5 %}
+                    <img src="/static/finder/img/moderate.svg" class="nutrition">{{product.salt}} <b>Sel</b> en quantité
+                    modérée<br>
+                    {% else %}
+                    <img src="/static/finder/img/high.svg" class="nutrition">{{product.salt}} <b>Sel</b> en quantité
+                    élevée<br>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        <div class="text-center pt-5 pb-3" style="background-color: #E8A75D;">
+            <a class="btn p-2 rounded" href="https://fr.openfoodfacts.org/produit/{{ product.off_id}}"
+                target="new">Consultez la fiche du produit sur OpenFoodFacts.fr</a>
+        </div>
+
+
+
+        {% endblock %}
