@@ -7,6 +7,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 import re
 from django.shortcuts import redirect
 stopwords = ['le', 'la', 'les', 'en', 'a', 'au', 'aux', 'd', 'des', 'et', 'de']
+from django.http import JsonResponse 
 
 
 def index(request):
@@ -120,14 +121,16 @@ def substitute(request, product_id):
     return render(request, 'finder/substitute.html', context)
 
 
-def save(request, product_id, sub_product_id):
-    #  saves the selected product and its substitute into a database
-    sub_product = Product.objects.get(pk=sub_product_id)
-    original_product = Product.objects.get(pk=product_id)
-    user = request.user
-    previous_page = request.META['HTTP_REFERER']
-    p = SavedProduct(username=user, sub_product=sub_product, original_product=original_product)
-    p.save()
-
-    response = redirect(previous_page)
-    return response
+def add(request):
+    data = {'success': False} 
+    if request.method=='POST':
+        product = request.POST.get('product')
+        user = request.user       
+        splitted = product.split(' ')
+        sub_product = Product.objects.get(pk=(splitted[1]))
+        original_product = Product.objects.get(pk=(splitted[0]))       
+        p = SavedProduct(username= user, sub_product=sub_product, original_product = original_product)
+        p.save()        
+        data['success'] = True
+    return JsonResponse(data)
+    

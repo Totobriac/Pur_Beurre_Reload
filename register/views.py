@@ -4,6 +4,7 @@ from django.contrib.auth import login, authenticate
 from django.http import HttpResponse
 from finder.models import Product, SavedProduct
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import JsonResponse
 
 
 def register(response):
@@ -33,3 +34,12 @@ def account(request, user_id):
         'saved_list': saved_list,
     }
     return render(request, 'account/account.html', context)
+
+def delete(request):
+    data = {'success': False} 
+    if request.method=='POST':
+        product = request.POST.get('product')
+        print (product)
+        SavedProduct.objects.filter(pk=product).delete()    
+        data['success'] = True
+    return JsonResponse(data)

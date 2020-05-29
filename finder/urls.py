@@ -6,5 +6,6 @@ urlpatterns = [
     re_path(r'^search/$', views.search, name='search'),
     path('<int:product_id>/', views.detail, name='detail'),
     path('substitute/<int:product_id>/', views.substitute, name='substitute'),
-    path('saved/<int:product_id>/<int:sub_product_id>', views.save, name='save'),
+    # path('saved/<int:product_id>/<int:sub_product_id>', views.save, name='save'),
+    path('add/', views.add, name='add'), 
 ]

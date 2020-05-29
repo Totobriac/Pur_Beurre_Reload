@@ -4,4 +4,5 @@ from . import views
 app_name = 'register'
 urlpatterns = [
     path('<int:user_id>/', views.account, name='account'),
+    path('delete/', views.delete, name='delete'),
     ]

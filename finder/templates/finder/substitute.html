@@ -5,15 +5,8 @@
   <header class="nav_masthead" style="overflow: auto;">
     <div class="col-lg-12">
       <hr>
-      {% if user.is_authenticated %}
-      <h2 class="intro-text text-center" style="color: beige;">Enregistrez votre produit de substitution dans votre
-        liste.</h2>
-      <hr class="divider1 my-4" />
-      {% else%}
-      <h2 class="intro-text text-center" style="color: beige;">Si vous souhaitez enregistrer le produit dans une liste,
-        inscrivez vous!</h2>
-      <hr class="divider1 my-4" />
-      {% endif %}
+      <h2 class="intro-text text-center" style="color: beige;">{{ title }}
+      </h2>
       <hr>
     </div>
   </header>
@@ -38,17 +31,15 @@
             <h4 class="card-title" style="color:white">"{{sub_product.real_brand}}"</h4>
           </div>
         </div>
-
         <div class=" container-fluid card-footer border-top-0">
-          <div class="row justify-content-end mx-2">
+          <div class="row justify-content-between mx-2">
+            <a href="{% url 'finder:detail' sub_product.id %}" class="btn btn-primary bl-1">Selectionnez</a>
+            {% block nav-style %}{% endblock %}
             {% if user.is_authenticated %}
-            <a href="{% url 'finder:save' product.id sub_product.id %}" class='btn-top' role="button"><i
-                class="top_1 fas fa-save"></i></a>
-            <a href="{% url 'finder:detail' sub_product.id %}" class=" savedblink btn btn-primary bl-1"
-              style="margin-top:1rem;max-width:100%">Fiche produit</a>
-            {% else %}
-            <a href="{% url 'finder:detail' sub_product.id %}" class=" savedblinknologged btn btn-primary bl-1"
-              style="margin-top:1rem;max-width:100%">Fiche produit</a>
+            <div class='sub_button'>            
+                <form class="add_btn" method='post'>{% csrf_token %}
+                <button class='added btn' value= '{{product.id }} {{ sub_product.id }}' ><i class=' fas fa-save'></i></button>              
+            </div>        
             {% endif %}
           </div>
         </div>

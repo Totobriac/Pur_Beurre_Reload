@@ -2,98 +2,101 @@
 
 {% block content %}
 
-<header class="masthead">
+<header class="masthead" >
 
   <div class="col-lg-12">
     <hr>
     <h2 class="intro-text text-center" style="color: beige;">Bienvenue sur ton compte {{ user }}</h2>
     <hr class="divider1 my-4" />
-
     {% if saved_list %}
     <div class='w-75 mx-auto  row d-flex justify-content-around mb-3'>
-        <h3 class="intro-text text-center account_items" style="color: beige;">Produit recherché</h3>
-        <h3 class="intro-text text-center account_items" style="color: beige;">Produit de substitut</h3>
-    </div>   
-        
+      <h3 class="intro-text text-center account_items" style="color: beige;">Produit recherché</h3>
+      <h3 class="intro-text text-center account_items" style="color: beige;">Produit de substitut</h3>
+    </div>
+
   </div>
 
-  <div class="w-75  mx-auto container-fluid" style='background-color: transparent;'>
+  <div id='fav_list'  class="w-75  mx-auto container-fluid" style='background-color: transparent;'>
 
-    
+    {% for saved in saved_list %}
 
-        {% for saved in saved_list %}
+    <div class='row d-flex justify-content-between'>
 
-        <div class='row d-flex justify-content-between'>
-          
-          <div class="card mb-3" style="width: 49%;">
-            <div class="row no-gutters">
-              <div class="col-md-2 my-auto">
-                <img class="mx-auto d-block" style="width:auto; height:auto; max-width:100px; max-height:100px; "
-                  src="{{ saved.original_product.picture }}">
-              </div>
-              <div class="col-md-10">
-                <div class="card-body">
-                  <h5 class="card-title"><a href="{% url 'finder:detail' saved.original_product.id %}" class="aaccount">{{ saved.original_product.real_name }}/ {{ saved.original_product.real_brand }}</a>
-                  </h5>
-                  <img src="/static/finder/img/nutriscore-{{ saved.original_product.nutrition_grade}}.svg"
-                    style="width:70px;"><br>
-                </div>
-              </div>
-            </div>
+      <div class="card mb-3" style="width: 49%;">
+        <div class="row no-gutters">
+          <div class="col-md-2 my-auto">
+            <img class="mx-auto d-block" style="width:auto; height:auto; max-width:100px; max-height:100px; "
+              src="{{ saved.original_product.picture }}">
           </div>
-
-          <div class="card mb-3" style="width: 49%;">
-            <div class="row no-gutters">
-              <div class="col-md-2 my-auto">
-                <img class="mx-auto d-block " style="width:auto; height:auto; max-width:100px; max-height:100px; "
-                  src="{{ saved.sub_product.picture }}">
-              </div>
-              <div class="col-md-10">
-                <div class="card-body">
-                  <h5 class="card-title"><a href="{% url 'finder:detail' saved.sub_product.id %}" class="aaccount">{{ saved.sub_product.real_name}}/ {{ saved.sub_product.real_brand }}</a>               
-                  </h5>
-                  <img src="/static/finder/img/nutriscore-{{ saved.sub_product.nutrition_grade}}.svg"
-                    style="width:70px;"><br>
-                </div>
-              </div>
+          <div class="col-md-10">
+            <div class="card-body">
+              <h5 class="card-title"><a href="{% url 'finder:detail' saved.original_product.id %}"
+                  class="aaccount">{{ saved.original_product.real_name }}/ {{ saved.original_product.real_brand }}</a>
+              </h5>
+              <img src="/static/finder/img/nutriscore-{{ saved.original_product.nutrition_grade}}.svg"
+                style="width:70px;"><br>
             </div>
           </div>
         </div>
-        {% endfor %}
-      </div>      
-
-    {% else %}
-    <div class='w-75 mx-auto  row d-flex justify-content-around mb-3'>
-      <h3 class="intro-text text-center account_items" style="color: beige;">Pas encore de produits sauvegardés! Mangez de la soupe !</h3>      
-    </div>
-    <hr> 
-    <div class="w-75  mx-auto container-fluid" style='background-color: transparent;'>
-    <div class='row d-flex justify-content-center'>
-      <iframe width="732" height="600" src="https://www.youtube.com/embed/dCrldDm4gRw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-    </div>
-    {% endif %}
-
-</header>
-
-<div>
-  {% if paginate %}
-  <div  style="background-color: #E8A75D; overflow: auto; ">
-    <div class="clearfix"></div>
-    <nav aria-label="">    
-      <ul class="pager mt-3">
-        {% if saved_list.has_previous %}
-            <span><a href="?page={{ saved_list.previous_page_number }}">Previous</a></span>  
-        {% endif %}
-        <span class="current" style='color:white;'>
-            Page {{ saved_list.number }} de {{ saved_list.paginator.num_pages }}
-        </span>
-        {% if saved_list.has_next %}
-            <span><a href="?page={{ saved_list.next_page_number }}">Next</a></span>
-        {% endif %}    
       </div>
-    </nav>
-  {% endif %}
-</div>
 
+      <div class="card mb-3" style="width: 49%;">
+        <div class="row no-gutters">
+          <div class="col-md-2 my-auto">
+            <img class="mx-auto d-block " style="width:auto; height:auto; max-width:100px; max-height:100px; "
+              src="{{ saved.sub_product.picture }}">
+          </div>
+          <div class="col-md-9">
+            <div class="card-body">
+              <h5 class="card-title"><a href="{% url 'finder:detail' saved.sub_product.id %}"
+                  class="aaccount">{{ saved.sub_product.real_name}}/ {{ saved.sub_product.real_brand }}</a>
+              </h5>
+              <img src="/static/finder/img/nutriscore-{{ saved.sub_product.nutrition_grade}}.svg"
+                style="width:70px;"><br>
+            </div>
+          </div>
+          <div class="col-md-1 my-auto mx-auto">
+            <form class="form_id" method='post'>{% csrf_token %}
+              <button class=' btn substitut' value='{{ saved.id }}'><i class='fas fa-trash-alt'></i></button>              
+             
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% else %}
+  <div class='w-75 mx-auto  row d-flex justify-content-around mb-3'>
+    <h3 class="intro-text text-center account_items" style="color: beige;">Pas encore de produits sauvegardés! Mangez de la soupe !</h3>      
+  </div>
+  <hr> 
+  <div class="w-75  mx-auto container-fluid" style='background-color: transparent;'>
+  <div class='row d-flex justify-content-center'>
+    <iframe width="732" height="600" src="https://www.youtube.com/embed/dCrldDm4gRw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  </div>
+  {% endif %}
+ 
+</header>
+<div>
+    {% if paginate %}
+    <div  style="background-color: #E8A75D; overflow: auto; ">
+      <div class="clearfix"></div>
+      <nav aria-label="">    
+        <ul class="pager mt-3">
+          {% if saved_list.has_previous %}
+              <span><a href="?page={{ saved_list.previous_page_number }}">Previous</a></span>  
+          {% endif %}
+          <span class="current" style='color:white;'>
+              Page {{ saved_list.number }} de {{ saved_list.paginator.num_pages }}
+          </span>
+          {% if saved_list.has_next %}
+              <span><a href="?page={{ saved_list.next_page_number }}">Next</a></span>
+          {% endif %}    
+        </div>
+      </nav>
+    {% endif %}
+</div>
 {% endblock %}
