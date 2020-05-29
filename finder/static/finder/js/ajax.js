@@ -13,7 +13,7 @@ $(".substitut").on('click', function(event) {
         success: function(data) {
           if (data['success'])            
             $("#fav_list").load(" #fav_list >*");
-            // location.reload(true);
+            
         }
     }); 
 });
