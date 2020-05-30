@@ -56,10 +56,9 @@
             </div>
           </div>
           <div class="col-md-1 my-auto mx-auto">
-            <form class="form_id" method='post'>{% csrf_token %}
-              <button class=' btn substitut' value='{{ saved.id }}'><i class='fas fa-trash-alt'></i></button>              
-             
-            </form>
+            
+          <button type ='button' class=' btn substitut' value='{{ saved.id }}'>{% csrf_token %}<i class='fas fa-trash-alt'></i></button>              
+          
           </div>
         </div>
       </div>

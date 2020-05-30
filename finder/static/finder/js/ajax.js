@@ -1,6 +1,6 @@
-$(".substitut").on('click', function(event) {
-    event.preventDefault();  
-    var product = $(this).val();           
+$("#fav_list").on("click", ".substitut", function(event) {
+    event.preventDefault();      
+    var product = $(this).val();               
     var url = '/register/delete/';   
     $.ajax({        
         url: url,        
@@ -12,13 +12,10 @@ $(".substitut").on('click', function(event) {
         datatype:'json',
         success: function(data) {
           if (data['success'])            
-            $("#fav_list").load(" #fav_list >*");
-            
+            $("#fav_list").load(" #fav_list > *");            
         }
     }); 
 });
-
-
 
 $(".added").on('click', function(event) {
     let addedBtn = $(this);
