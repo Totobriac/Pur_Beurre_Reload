@@ -8,7 +8,12 @@
     <link rel="stylesheet" type="text/css" href="{% static 'finder/css/style.css' %}">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Pur Beurre Toto</title>
+    <title>Pur Beurre </title>
+    <meta property="og:url"           content="puramantecados.herokuapp.com" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="Pur Beurre à changé ma vie!" />
+    <meta property="og:description"   content="Pur Beurre à changé ma vie!" />
+    <meta property="og:image"         content="{% static 'finder/img/pur_beurre_favicon.png' %}" />
     <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" crossorigin="anonymous"></script>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Scope+One" rel="stylesheet" type="text/css">
@@ -16,10 +21,11 @@
     <script src="{% static 'finder/js/scripts.js' %}"></script>
     <script src="{% static 'finder/js/ajax.js' %}"></script>
     <link rel="shortcut icon" type="image/png" href="{% static 'finder/img/pur_beurre_favicon.png' %}" />
-
 </head>
 
 <body id="page-top">
+    <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v7.0&appId=205384187533881&autoLogAppEvents=1"></script>
     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
         <div class="container">
             <a class="navbar-brand" href="/"> <img src="{% static 'finder/img/logo_pur_beurre.png' %}"
