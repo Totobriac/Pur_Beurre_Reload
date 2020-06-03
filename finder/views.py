@@ -7,7 +7,8 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 import re
 from django.shortcuts import redirect
 stopwords = ['le', 'la', 'les', 'en', 'a', 'au', 'aux', 'd', 'des', 'et', 'de']
-from django.http import JsonResponse 
+from django.http import JsonResponse
+import json
 
 
 def index(request):
@@ -134,3 +135,17 @@ def add(request):
         data['success'] = True
     return JsonResponse(data)
     
+def search_auto(request):
+  if request.is_ajax():    
+    q = request.GET.get('term', '')
+    products = Product.objects.filter(real_name__icontains=q)    
+    results = []
+    for pr in products:
+      product_json = {}
+      product_json = pr.real_name
+      results.append(product_json)
+    data = json.dumps(results)
+  else:
+    data = 'fail'
+  mimetype = 'application/json'
+  return HttpResponse(data, mimetype)

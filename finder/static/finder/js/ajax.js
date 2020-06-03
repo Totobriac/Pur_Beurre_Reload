@@ -47,3 +47,26 @@ $(".added").on('click', function(event) {
     js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
+
+$(function() {
+    $("#prod").autocomplete({     
+     source: "/finder/search_auto",
+     maxShowItems: 5,
+     open: function() {      
+      $('.ui-menu')
+          .width(250);
+  } ,
+     position: {  position: { my : "left top", at: "left bottom" }  },
+     select: function (event, ui) { 
+        AutoCompleteSelectHandler(event, ui)
+      },
+      minLength: 2,
+    });  
+});
+
+$( ".selector" ).autocomplete({ position: { my : "right top", at: "right bottom" } });
+
+function AutoCompleteSelectHandler(event, ui)
+  {
+    var selectedObj = ui.item;
+  }
