@@ -271,7 +271,8 @@ button:hover {
 }
 
 .ui-menu-item .ui-menu-item-wrapper.ui-state-active {
-  background: #86EBE6!important;    
+  background: #86EBE6!important;
+  z-index: 1000;   
 }
 
 .ui-autocomplete {
@@ -279,12 +280,27 @@ button:hover {
   z-index: 1000;
   overflow-y: auto;
   overflow-x: hidden;
+  /* position: fixed !important; 
+  top: 60px !important; */
 }
 
 .ui-menu-item a
-    {
-        max-width:100%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }  
+{
+  max-width:100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;        
+} 
+
+#my-suggestions {
+  position: absolute;
+}
+
+#my-suggestions .ui-autocomplete {
+  max-height: 100px;
+  z-index: 1000;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: fixed !important; 
+  top: 60px !important;
+}

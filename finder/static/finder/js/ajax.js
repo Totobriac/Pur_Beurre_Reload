@@ -62,9 +62,17 @@ $(function(){
   $('.prod').autocomplete({
         open: function() { $('.ui-menu').width(350);
   } ,
-      source: '/finder/search_auto',
-      minLength: 3,      
+    source: '/finder/search_auto',
+    minLength: 3,
+    appendTo: '#my-suggestions',     
   });
  
+  $('.prod2').autocomplete({
+    open: function() { $('.ui-menu').width(350);
+} ,
+    source: '/finder/search_auto',
+    minLength: 3,       
+});
+
   });
 
