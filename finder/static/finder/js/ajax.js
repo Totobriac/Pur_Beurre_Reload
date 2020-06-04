@@ -49,14 +49,14 @@ $(".added").on('click', function(event) {
   }(document, 'script', 'facebook-jssdk'));
 
 $(function() {
-    $("#prod").autocomplete({     
+    $(".prod").autocomplete({     
      source: "/finder/search_auto",
      maxShowItems: 5,
      open: function() {      
       $('.ui-menu')
           .width(250);
   } ,
-     position: {  position: { my : "left top", at: "left bottom" }  },
+    //  position: {  position: { my : "left top", at: "left bottom" }  },
      select: function (event, ui) { 
         AutoCompleteSelectHandler(event, ui)
       },
