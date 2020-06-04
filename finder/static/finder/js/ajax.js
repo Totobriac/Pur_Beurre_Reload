@@ -48,25 +48,23 @@ $(".added").on('click', function(event) {
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 
-$(function() {
-    $(".prod").autocomplete({     
-     source: "/finder/search_auto",
-     maxShowItems: 5,
-     open: function() {      
-      $('.ui-menu')
-          .width(250);
+
+$(function(){
+
+  $.ui.autocomplete.prototype._renderItem = function (ul, item) {      
+      item.label = item.label.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + $.ui.autocomplete.escapeRegex(this.term) + ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<span style='font-weight:bold; color:#C45525'>$1</span>");
+      return $("<li></li>")
+              .data("item.autocomplete", item)
+              .append("<a>" + item.label + "</a>")
+              .appendTo(ul);
+  };
+    
+  $('.prod').autocomplete({
+        open: function() { $('.ui-menu').width(350);
   } ,
-    //  position: {  position: { my : "left top", at: "left bottom" }  },
-     select: function (event, ui) { 
-        AutoCompleteSelectHandler(event, ui)
-      },
-      minLength: 2,
-    });  
-});
+      source: '/finder/search_auto',
+      minLength: 3,      
+  });
+ 
+  });
 
-$( ".selector" ).autocomplete({ position: { my : "right top", at: "right bottom" } });
-
-function AutoCompleteSelectHandler(event, ui)
-  {
-    var selectedObj = ui.item;
-  }

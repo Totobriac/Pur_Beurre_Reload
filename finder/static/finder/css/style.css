@@ -269,3 +269,22 @@ button:hover {
   text-decoration: underline;
   text-decoration-color: #C45525;
 }
+
+.ui-menu-item .ui-menu-item-wrapper.ui-state-active {
+  background: #86EBE6!important;    
+}
+
+.ui-autocomplete {
+  max-height: 100px;
+  z-index: 1000;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.ui-menu-item a
+    {
+        max-width:100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }  
