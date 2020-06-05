@@ -276,16 +276,13 @@ button:hover {
 }
 
 .ui-autocomplete {
-  max-height: 100px;
+  max-height: 110px;
   z-index: 1000;
   overflow-y: auto;
   overflow-x: hidden;
-  /* position: fixed !important; 
-  top: 60px !important; */
 }
 
-.ui-menu-item a
-{
+.ui-menu-item {
   max-width:100%;
   white-space: nowrap;
   overflow: hidden;

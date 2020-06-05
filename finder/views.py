@@ -141,9 +141,12 @@ def search_auto(request):
     products = Product.objects.filter(real_name__icontains=q)    
     results = []
     for pr in products:
-      product_json = {}
-      product_json = pr.real_name
-      results.append(product_json)
+        product_json = {'value':0, 'img':0, 'label':0}
+        product_json['value'] = pr.real_name
+        product_json['label'] = pr.real_name
+        product_json['img'] = pr.picture               
+        results.append(product_json)
+    print (results)
     data = json.dumps(results)
   else:
     data = 'fail'
