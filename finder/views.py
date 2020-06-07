@@ -145,8 +145,7 @@ def search_auto(request):
         product_json['value'] = pr.real_name
         product_json['label'] = pr.real_name
         product_json['img'] = pr.picture               
-        results.append(product_json)
-    print (results)
+        results.append(product_json)    
     data = json.dumps(results)
   else:
     data = 'fail'

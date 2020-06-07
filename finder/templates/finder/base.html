@@ -39,6 +39,7 @@
                         <input class="prod" class="form-control mr-sm-2" type="text" name="query" placeholder="">
                         <div id="my-suggestions"></div>
                         <button class="btn" type="submit">Chercher</button>
+                    </form>
                     </div>
                     {% if user.is_authenticated %}
                     <li class="nav-item px-3"><a href="{% url 'register:account' user.id %}" class='btn-top'
