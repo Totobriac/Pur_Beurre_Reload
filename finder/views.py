@@ -22,57 +22,94 @@ def mentions(request):
     template = loader.get_template('finder/mentions.html')
     return HttpResponse(template.render(request=request))
 
-
 def search(request):
-    # process the input from the user
-    # input format : str
-    # return a list of str
-    query = request.GET.get('query')
-    query_lower = query.lower()
-    list_name = re.split("[- ’? ; , ' . : ' ' " " ]", query_lower)
-    stripped_query = [strip_accents(x) for x in list_name]
-    clean_query = [word for word in stripped_query if word not in stopwords]
+    if request.method=='GET':     
+        query = request.GET.get('query')    
+        query_lower = query.lower()
+        list_name = re.split("[- ’? ; , ' . : ' ' " " ]", query_lower)
+        stripped_query = [strip_accents(x) for x in list_name]
+        clean_query = [word for word in stripped_query if word not in stopwords]    
+        match_list = []
+        for x in Product.objects.all():
+            match = 0
+            for y in clean_query:
+                if y in x.name or y in x.brand:
+                    match += 1
+                    if match == len(clean_query):
+                        match_list.append(x.id)
+                else:
+                    pass   
+        
+        if not query:
+            products_list = Product.objects.all()
+        else:
+            products_list = Product.objects.filter(id__in=match_list) 
 
-    #compare the list of str to 'name' & 'brand' of every product in Product
-    # if every str of the list matches saves the product in match_list[]
-    # returns a list of int
-    match_list = []
-    for x in Product.objects.all():
-        match = 0
-        for y in clean_query:
-            if y in x.name or y in x.brand:
-                match += 1
-                if match == len(clean_query):
-                    match_list.append(x.id)
-            else:
-                pass
+        title = "Choissisez le produit qui correspond à votre demande: "    
+        paginator = Paginator(products_list, 9)
+        page = request.GET.get('page', 1)
+        page_range = paginator.page_range    
+        try:
+            products = paginator.page(page)
+        except PageNotAnInteger:
+            products = paginator.page(1)
+        except EmptyPage:
+            products = paginator.page(paginator.num_pages)    
 
-    if not query:
-        products_list = Product.objects.all()
-    else:
-        products_list = Product.objects.filter(id__in=match_list)
+        context = {
+            'products': products,
+            'title': title,
+            'paginate': True,
+            'query': query,
+            'page_range': page_range,
+        }        
+        return render(request, 'finder/search.html', context)
 
-    title = "Choissisez le produit qui correspond à votre demande: "
+    if request.method=='POST':        
+        answer = request.POST.get('query')
+        splitted = answer.split(' ')
+        print(splitted)
+        query_list = splitted[0:-1]
+        query = ' '.join(query_list)                
+        query_lower = query.lower()
+        list_name = re.split("[- ’? ; , ' . : ' ' " " ]", query_lower)
+        stripped_query = [strip_accents(x) for x in list_name]
+        clean_query = [word for word in stripped_query if word not in stopwords]          
+        match_list = []
+        for x in Product.objects.all():
+            match = 0
+            for y in clean_query:
+                if y in x.name or y in x.brand:
+                    match += 1
+                    if match == len(clean_query):
+                        match_list.append(x.id)
+                else:
+                    pass   
+        if not query:
+            products_list = Product.objects.all()
+        else:
+            products_list = Product.objects.filter(id__in=match_list) 
 
-    # paginate the result
-    paginator = Paginator(products_list, 9)
-    page = request.GET.get('page', 1)
+        title = "Choissisez le produit qui correspond à votre demande: "    
+        paginator = Paginator(products_list, 9)
+        page = splitted[-1]        
+        page_range = paginator.page_range    
+        try:
+            products = paginator.page(page)
+        except PageNotAnInteger:
+            products = paginator.page(1)
+        except EmptyPage:
+            products = paginator.page(paginator.num_pages)            
+        context = {
+            'products': products,
+            'title': title,
+            'paginate': True,
+            'query': query,
+            'page_range': page_range,
+        }                     
+        return render(request, 'finder/sear.html', context)
 
-    try:
-        products = paginator.page(page)
-    except PageNotAnInteger:
-        products = paginator.page(1)
-    except EmptyPage:
-        products = paginator.page(paginator.num_pages)
-
-    context = {
-        'products': products,
-        'title': title,
-        'paginate': True,
-        'query': query
-    }
-    # render the result to search.html
-    return render(request, 'finder/search.html', context)
+    
 
 
 def detail(request, product_id):
@@ -145,7 +182,7 @@ def search_auto(request):
         product_json['value'] = pr.real_name
         product_json['label'] = pr.real_name
         product_json['img'] = pr.picture               
-        results.append(product_json)    
+        results.append(product_json)            
     data = json.dumps(results)
   else:
     data = 'fail'

@@ -7,5 +7,6 @@ urlpatterns = [
     path('search_auto', views.search_auto, name='search_auto'),
     path('<int:product_id>/', views.detail, name='detail'),
     path('substitute/<int:product_id>/', views.substitute, name='substitute'),    
-    path('add/', views.add, name='add'), 
+    path('add/', views.add, name='add'),
+    path('sear/', views.search, name='sear') 
 ]

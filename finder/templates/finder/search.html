@@ -44,9 +44,9 @@
     {% endfor %}
   </div>
 </div>
-
+{% csrf_token %}
 <div>
-  {% if paginate %}
+  <!-- {% if paginate %}
   <div style="background-color: #E8A75D; overflow: auto; ">
     <div class="clearfix"></div>
     <nav aria-label="">
@@ -62,7 +62,19 @@
         {% endif %}
   </div>
   </nav>
-  {% endif %}
+  {% endif %} -->
+  <div>                      
+        {% if paginate %}
+        <div  style="background-color: #E8A75D; overflow: auto; ">
+        {% for i in page_range %}
+        {% if i == products.number %}
+        <span><button class='nav_button_search' value='{{ query }} {{i}}' style='background-color: #C45525'>{{i}}</button></span>
+        {% else %}
+        <span><button class='nav_button_search' value='{{ query }} {{i}}'>{{i}}</button></span>
+        {% endif %}        
+        {% endfor %}
+        {% endif %}
+      </div>     
 </div>
 
 {% else %}
