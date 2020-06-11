@@ -11,13 +11,15 @@ $("#fav_list").on("click", ".substitut", function(event) {
         },
         datatype:'json',
         success: function(data) {
-          if (data['success'])            
+          if (data['success'])                    
             $("#fav_list").load(" #fav_list > *");            
+            $('#navigation .nav_button').css({"background-color":"#C45525", "color":"white"});
+            $('#navigation .nav_button').first().css({"background-color":"white", "color":"black"});                                           
         }
     }); 
 });
 
-$(".added").on('click', function(event) {
+$(".row").on('click', ".added", function(event) {
     let addedBtn = $(this);
     console.log(addedBtn)
     event.preventDefault();     
@@ -39,6 +41,7 @@ $(".added").on('click', function(event) {
         }
     }); 
 });
+
 
 (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -65,6 +68,7 @@ $(function() {
   };
 });
 
+
 $(function() {
   $('.prod').autocomplete({
     open: function() {
@@ -82,10 +86,13 @@ $(function() {
   };
 });
 
+
 $(".nav_button").on("click", function(event) {
     event.preventDefault();      
-    var page = $(this).val();                   
-    var url = '/register/account/';   
+    var page = $(this).val();
+    $('#navigation .nav_button').css({"background-color":"#C45525", "color":"white"});
+    $(this).css({"background-color":"white", "color":"black"});                   
+    var url = '/register/account/';
     $.ajax({        
         url: url,        
         type: "POST",
@@ -101,10 +108,12 @@ $(".nav_button").on("click", function(event) {
     }); 
 });
 
+
 $(".nav_button_search").on("click", function(event) {
   event.preventDefault();      
   var query = $(this).val();
-  console.log(query)                  
+  $('#navigation .nav_button_search').css({"background-color":"#C45525", "color":"white"});
+  $(this).css({"background-color":"white", "color":"black"});                          
   var url = '/finder/search/';   
   $.ajax({        
         url: url,        
@@ -122,13 +131,25 @@ $(".nav_button_search").on("click", function(event) {
     }); 
 });
 
-
-links = document.querySelectorAll(".nav_button")
-  links.forEach(function (item) {
-    item.addEventListener('click', function () {      
-      links.forEach(function (item) {
-        item.style.backgroundColor = '#fff'
-      })      
-      this.style.backgroundColor = '#C45525'
-    });
-  })
+$(".nav_button_sub").on("click", function(event) {
+  event.preventDefault();      
+  var query = $(this).val();
+  $("#navigation .nav_button_sub").css({"background-color":"#C45525", "color":"white"});
+  $(this).css({"background-color":"white", "color":"black"});
+  $('#loading-indicator').show();                         
+  var url = '/finder/sub/';   
+  $.ajax({        
+        url: url,        
+        type: "POST",
+        data:{
+            'query': query,            
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),            
+        },        
+        datatype:'html',        
+        success: function(resp) {                                   
+            $('.row').html('');                  
+            $('.row').html(resp);
+            $('#loading-indicator').hide();                         
+        }
+    }); 
+});

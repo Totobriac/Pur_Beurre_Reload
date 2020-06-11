@@ -109,54 +109,99 @@ def search(request):
         }                     
         return render(request, 'finder/sear.html', context)
 
-    
-
-
 def detail(request, product_id):
     # redirect to the details page of a product    
     product = Product.objects.get(pk=product_id)
     return render(request, 'finder/detail.html', {'product': product})
 
 
+# def substitute(request, product_id):
 def substitute(request, product_id):
     # find food substitute for the selected product
-    product = Product.objects.get(pk=product_id)
-    product_categories = eval(product.categories)
-    match_list = []
+    if request.method=='GET':               
+        product = Product.objects.get(pk=product_id)
+        product_categories = eval(product.categories)
+        match_list = []
+    
+        for x in Product.objects.all():
+            if x.id != product_id:
+                match = 0
+                for y in product_categories[0:4]:                    
+                    if y not in eval(x.categories):
+                        break
+                    elif y in eval(x.categories):
+                        match += 1
+                        if match == 4:
+                            match_list.append(x.id)
 
-    # compares the starting 4 categories of the product with those of the other products in the database
-    # returns a list of matching products in descending order from their 'nutrition-grade'
-    for x in Product.objects.all():
-        if x.id != product_id:
-            match = 0
-            for y in product_categories[0:4]:
-                print(y)
-                if y not in eval(x.categories):
-                    break
-                elif y in eval(x.categories):
-                    match += 1
-                    if match == 4:
-                        match_list.append(x.id)
+        substitute_product = Product.objects.filter(id__in=match_list).order_by('nutrition_grade')
 
-    substitute_product = Product.objects.filter(id__in=match_list).order_by('nutrition_grade')
+        paginator = Paginator(substitute_product, 9)
+        page_range = paginator.page_range
+        print(page_range)
+        page = request.GET.get('page')        
+        try:
+            products = paginator.page(page)
+        except PageNotAnInteger:            
+            products = paginator.page(1)
+        except EmptyPage:
+            products = paginator.page(paginator.num_pages)
+        
+        context = {
+            'products': products,
+            'product': product,
+            'paginate': True,
+            'page_range': page_range,
+        }
 
-    # paginate the result
-    paginator = Paginator(substitute_product, 9)
-    page = request.GET.get('page', 1)
+        return render(request, 'finder/substitute.html', context)
 
-    try:
-        products = paginator.page(page)
-    except PageNotAnInteger:
-        products = paginator.page(1)
-    except EmptyPage:
-        products = paginator.page(paginator.num_pages)
+def sub (request):
+    if request.method=='POST':
+        answer = request.POST.get('query')
+        splitted = answer.split(' ')
+        product_id = splitted[0]
+        page = splitted[1]
+        product = Product.objects.get(pk=product_id)
+        product_categories = eval(product.categories)
+        match_list = []
+    
+        for x in Product.objects.all():
+            if x.id != product_id:
+                match = 0
+                for y in product_categories[0:4]:                    
+                    if y not in eval(x.categories):
+                        break
+                    elif y in eval(x.categories):
+                        match += 1
+                        if match == 4:
+                            match_list.append(x.id)
 
-    context = {
-        'products': products,
-        'product': product,
-    }
+        substitute_product = Product.objects.filter(id__in=match_list).order_by('nutrition_grade')
 
-    return render(request, 'finder/substitute.html', context)
+        paginator = Paginator(substitute_product, 9)
+        page_range = paginator.page_range
+        
+              
+        try:
+            products = paginator.page(page)
+        except PageNotAnInteger:            
+            products = paginator.page(1)
+        except EmptyPage:
+            products = paginator.page(paginator.num_pages)
+        
+        context = {
+            'products': products,
+            'product': product,
+            'paginate': True,
+            'page_range': page_range,
+        }
+        return render(request, 'finder/sub.html', context)
+
+
+
+
+
 
 
 def add(request):

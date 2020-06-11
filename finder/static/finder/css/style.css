@@ -202,10 +202,6 @@ h1, h2 {
     font-family: "Open Sans";
 }
 
-button:hover {
-    background-color: #86EBE6;
-  }
-
 .pager span>a,.pager span>span{
 	display:inline-block;
 	padding:5px 14px;
@@ -302,7 +298,30 @@ button:hover {
   top: 60px !important;
 }
 
-/* .nav_button {
-  background-color: #fff;
+.first {
+  background-color: white;
+  color:black; 
+}
 
-} */
+#navigation{
+  padding-top: 10px;
+  background-color: #E8A75D;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+
+#loading-indicator {
+  height: 30px;
+  animation: spin-animation 1s infinite;
+  display: inline-block;
+}
+
+@keyframes spin-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+}

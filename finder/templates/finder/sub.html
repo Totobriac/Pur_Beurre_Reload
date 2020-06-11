@@ -1,0 +1,41 @@
+{%load static%}
+<!DOCTYPE html>
+
+<html>
+<body>
+    {% for sub_product in products %}    
+    <div class="col-sm-4 d-flex justify-content-center mb-5 mt-5">
+      <div class="card " style="height:450px; width:350px; background-color:#345A61">
+        <div class="nutrimage">
+          <img src="/static/finder/img/nutriscore-{{ sub_product.nutrition_grade}}.svg"
+            style="margin-bottom:1rem;max-width:100%"><br>
+        </div>
+        <div class="my-auto">
+          <div class="text-center">
+            <img class="mx-auto" style="width:auto; height:auto; max-width:250px; max-height:250px; "
+              src="{{ sub_product.picture }}">
+          </div>
+          <div class="card-body text-center">
+            <h4 class="card-title" style="color:white">{{sub_product.real_name}}</h4>
+            <hr class="divider1 my-1" />
+            <h4 class="card-title" style="color:white">"{{sub_product.real_brand}}"</h4>
+          </div>
+        </div>
+        <div class=" container-fluid card-footer border-top-0">
+          <div class="row justify-content-between mx-2">
+            <a href="{% url 'finder:detail' sub_product.id %}" class="btn btn-primary bl-1">Selectionnez</a>
+            {% block nav-style %}{% endblock %}
+            {% if user.is_authenticated %}
+            <div class='sub_button'>            
+                <form class="add_btn" method='post'>{% csrf_token %}
+                <button class='added btn' value= '{{product.id }} {{ sub_product.id }}' ><i class=' fas fa-save'></i></button>              
+            </div>        
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+      
+</body>
+</html>
