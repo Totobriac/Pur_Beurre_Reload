@@ -5,7 +5,6 @@ from django.http import HttpResponse
 from finder.models import Product, SavedProduct
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import JsonResponse
-from .serializer import pagination
 import json
 
 def register(response):
