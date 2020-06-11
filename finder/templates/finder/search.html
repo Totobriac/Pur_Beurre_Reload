@@ -44,25 +44,21 @@
     {% endfor %}
   </div>
 </div>
-
+{% csrf_token %}
 <div>
-  {% if paginate %}
-  <div style="background-color: #E8A75D; overflow: auto; ">
-    <div class="clearfix"></div>
-    <nav aria-label="">
-      <ul class="pager mb-3">
-        {% if products.has_previous %}
-        <span><a href="?query={{query}}&page={{ products.previous_page_number }}">Previous</a></span>
+
+  <div id='navigation'>                      
+        {% if paginate %}
+        <div  style="background-color: #E8A75D; overflow: auto; ">
+        {% for i in page_range %}
+        {% if i == products.number %}
+        <span><button class='btn nav_button_search' value='{{ query }} {{i}}' style='background-color: #C45525'>{{i}}</button></span>
+        {% else %}
+        <span><button class='btn nav_button_search' value='{{ query }} {{i}}'>{{i}}</button></span>
+        {% endif %}        
+        {% endfor %}
         {% endif %}
-        <span class="current" style='color:white;'>
-          Page {{ products.number }} de {{ products.paginator.num_pages }}
-        </span>
-        {% if products.has_next %}
-        <span><a href="?query={{query}}&page={{ products.next_page_number }}">Next</a></span>
-        {% endif %}
-  </div>
-  </nav>
-  {% endif %}
+      </div>     
 </div>
 
 {% else %}

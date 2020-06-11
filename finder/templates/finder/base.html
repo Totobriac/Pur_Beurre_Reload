@@ -42,7 +42,7 @@
                     </form>
                     </div>
                     {% if user.is_authenticated %}
-                    <li class="nav-item px-3"><a href="{% url 'register:account' user.id %}" class='btn-top'
+                    <li class="nav-item px-3"><a href="{% url 'register:account' %}" class='btn-top'
                             role="button"><i class="top fas fa-carrot"></i></a></li>
                     <li class="nav-item px-3"><a href="/logout" class='btn-top' role="button"><i
                                 class="top fas fa-sign-out-alt"></i></a></li>

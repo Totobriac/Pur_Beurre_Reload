@@ -1,0 +1,34 @@
+{%load static%}
+<!DOCTYPE html>
+
+<html>
+<body>
+    {% for product in products %}
+    <div class="col-sm-4 d-flex justify-content-center mb-5 mt-5">
+      <div class="card " style="height:450px; width:350px; background-color:#345A61">
+        <div class="nutrimage">
+          <img src="/static/finder/img/nutriscore-{{ product.nutrition_grade}}.svg"
+            style="margin-bottom:1rem;max-width:100%"><br>
+        </div>
+
+        <div class="my-auto">
+          <div class="text-center">
+            <img class="mx-auto" style="width:auto; height:auto; max-width:250px; max-height:250px; "
+              src="{{ product.picture }}">
+          </div>
+          <div class="card-body text-center">
+            <h4 class="card-title" style="color:white">{{product.real_name}}</h4>
+            <hr class="divider1 my-1" />
+            <h4 class="card-title" style="color:white">"{{product.real_brand}}"</h4>
+          </div>
+        </div>
+
+        <div class="savelink">
+          <a href="{% url 'finder:detail' product.id %}" class="btn btn-primary"
+            style="margin-top:1rem;max-width:100%">Selectionnez</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}   
+</body>
+</html>

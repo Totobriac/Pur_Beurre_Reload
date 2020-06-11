@@ -1,0 +1,54 @@
+{%load static%}
+<!DOCTYPE html>
+
+<html>
+  {% for saved in saved_list %}
+
+  <div class='row d-flex justify-content-between'>
+
+    <div class="card mb-3" style="width: 49%;">
+      <div class="row no-gutters">
+        <div class="col-md-2 my-auto">
+          <img class="mx-auto d-block" style="width:auto; height:auto; max-width:100px; max-height:100px; "
+            src="{{ saved.original_product.picture }}">
+        </div>
+        <div class="col-md-10">
+          <div class="card-body">
+            <h5 class="card-title"><a href="{% url 'finder:detail' saved.original_product.id %}"
+                class="aaccount">{{ saved.original_product.real_name }}/ {{ saved.original_product.real_brand }}</a>
+            </h5>
+            <img src="/static/finder/img/nutriscore-{{ saved.original_product.nutrition_grade}}.svg"
+              style="width:70px;"><br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-3" style="width: 49%;">
+      <div class="row no-gutters">
+        <div class="col-md-2 my-auto">
+          <img class="mx-auto d-block " style="width:auto; height:auto; max-width:100px; max-height:100px; "
+            src="{{ saved.sub_product.picture }}">
+        </div>
+        <div class="col-md-9">
+          <div class="card-body">
+            <h5 class="card-title"><a href="{% url 'finder:detail' saved.sub_product.id %}"
+                class="aaccount">{{ saved.sub_product.real_name}}/ {{ saved.sub_product.real_brand }}</a>
+            </h5>
+            <img src="/static/finder/img/nutriscore-{{ saved.sub_product.nutrition_grade}}.svg"
+              style="width:70px;"><br>
+          </div>
+        </div>
+        <div class="col-md-1 my-auto mx-auto">
+          
+        <button type ='button' class=' btn substitut' value='{{ saved.id }}'>{% csrf_token %}<i class='fas fa-trash-alt'></i></button>              
+        
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  
+ </div>
+
+</html>
