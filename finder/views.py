@@ -180,8 +180,7 @@ def sub (request):
         substitute_product = Product.objects.filter(id__in=match_list).order_by('nutrition_grade')
 
         paginator = Paginator(substitute_product, 9)
-        page_range = paginator.page_range
-        
+        page_range = paginator.page_range        
               
         try:
             products = paginator.page(page)
@@ -197,12 +196,6 @@ def sub (request):
             'page_range': page_range,
         }
         return render(request, 'finder/sub.html', context)
-
-
-
-
-
-
 
 def add(request):
     data = {'success': False} 

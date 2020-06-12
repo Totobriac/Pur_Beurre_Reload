@@ -1,5 +1,5 @@
 $("#fav_list").on("click", ".substitut", function(event) {
-    event.preventDefault();      
+    event.preventDefault();        
     var product = $(this).val();               
     var url = '/register/delete/';   
     $.ajax({        
@@ -22,8 +22,9 @@ $("#fav_list").on("click", ".substitut", function(event) {
 $(".row").on('click', ".added", function(event) {
     let addedBtn = $(this);
     console.log(addedBtn)
-    event.preventDefault();     
-    var product = $(this).val();
+    event.preventDefault();
+    event.stopPropagation();
+    var product = $(this).val();    
     console.log(product)   
     var url = '/finder/add/';   
     $.ajax({        
@@ -35,9 +36,8 @@ $(".row").on('click', ".added", function(event) {
         },
         datatype:'json',
         success: function(data) {
-          if (data['success'])
-          addedBtn.parent('.sub_button').hide();   
-                       
+          if (data['success'])            
+          addedBtn.hide();             
         }
     }); 
 });
