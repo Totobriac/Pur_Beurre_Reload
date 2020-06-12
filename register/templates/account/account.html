@@ -57,28 +57,25 @@
           <div class="col-md-1 my-auto mx-auto">
             
           <button type ='button' class=' btn substitut' value='{{ saved.id }}'>{% csrf_token %}<i class='fas fa-trash-alt'></i></button>              
-          
           </div>
         </div>
       </div>
     </div>
     {% endfor %}
-  
-
+  </div>
     {% else %}
     <div class='w-75 mx-auto  row d-flex justify-content-around mb-3'>
-      <h3 class="intro-text text-center account_items" style="color: beige;">Pas encore de produits sauvegardés! Mangez de la soupe !</h3>      
+        <h3 class="intro-text text-center account_items" style="color: beige;">Pas encore de produits sauvegardés! Mangez de la soupe !</h3>      
     </div>
-    <hr> 
-    <div class="w-75  mx-auto container-fluid" style='background-color: transparent;'>
-    <div class='row d-flex justify-content-center'>
-      <iframe width="732" height="600" src="https://www.youtube.com/embed/dCrldDm4gRw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
+      <hr> 
+      <div class="w-75  mx-auto container-fluid" style='background-color: transparent;'>
+      <div class='row d-flex justify-content-center'>
+        <iframe width="732" height="600" src="https://www.youtube.com/embed/dCrldDm4gRw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
     </div>
     {% endif %}
  
-    </header>
-  </div>
+</header> 
     <div id='navigation'>                      
         {% if paginate %}
         <div  style="background-color: #E8A75D; overflow: auto; ">
@@ -89,8 +86,7 @@
         <span><button class='btn nav_button ' value='{{ i }}'>{{i}}</button></span>
         {% endif %}        
         {% endfor %}
-        {% endif %}     
-        
+        {% endif %}    
     </div>         
 
 {% endblock %}
