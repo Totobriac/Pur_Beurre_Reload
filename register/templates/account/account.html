@@ -5,7 +5,7 @@
 <header class="masthead" >
 
   <div class="col-lg-12">
-    <hr>
+    
     <h2 class="intro-text text-center" style="color: beige;">Bienvenue sur ton compte {{ user }}</h2>
     <hr class="divider1 my-4" />
     {% if saved_list %}
@@ -15,7 +15,7 @@
     </div>
     </div>
 
-  <div id='fav_list'  class="w-75  mx-auto container-fluid" style='background-color: transparent;'>
+  <div id='fav_list'  class="w-75  mx-auto" style='background-color: transparent; height: auto;'>
 
     {% for saved in saved_list %}
 
@@ -75,10 +75,12 @@
     </div>
     {% endif %}
  
-</header> 
+  </header>
+
     <div id='navigation'>                      
         {% if paginate %}
         <div  style="background-color: #E8A75D; overflow: auto; ">
+        <div class="clearfix"></div>
         {% for i in page_range %}
         {% if i == 1%}       
         <span><button class='btn nav_button first ' value='{{ i }}'>{{i}}</button></span>
@@ -89,4 +91,5 @@
         {% endif %}    
     </div>         
 
+   
 {% endblock %}

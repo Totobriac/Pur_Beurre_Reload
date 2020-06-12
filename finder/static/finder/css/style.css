@@ -303,11 +303,11 @@ h1, h2 {
   color:black; 
 }
 
-#navigation{
-  padding-top: 10px;
+#navigation{  
   background-color: #E8A75D;
   padding-bottom: 10px;
   padding-left: 10px;
+  padding-top: 10px;
 }
 
 #loading-indicator {
@@ -324,4 +324,4 @@ h1, h2 {
     transform: rotate(359deg);
   }
 }
-}
+
