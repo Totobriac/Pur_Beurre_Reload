@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<header class="masthead" >
+<header class="nav_masthead_account" style="overflow: auto; background-color: #E8A75D;">
 
   <div class="col-lg-12">
     
@@ -10,12 +10,16 @@
     <hr class="divider1 my-4" />
     {% if saved_list %}
     <div class='w-75 mx-auto  row d-flex justify-content-around mb-3'>
-      <h3 class="intro-text text-center account_items" style="color: beige;">Produit recherché</h3>
-      <h3 class="intro-text text-center account_items" style="color: beige;">Produit de substitut</h3>
+      <h3 class="intro-text text-center account_items mt-0" style="color: beige;">Produit recherché</h3>
+      <h3 class="intro-text text-center account_items mt-0" style="color: beige;">Produit de substitut</h3>
     </div>
     </div>
 
-  <div id='fav_list'  class="w-75  mx-auto" style='background-color: transparent; height: auto;'>
+  </header>
+
+  <div class="row account_back" >
+
+  <div id='fav_list'  class="w-75  mx-auto mt-3" style='background-color: transparent; height: auto;'>
 
     {% for saved in saved_list %}
 
@@ -75,11 +79,11 @@
     </div>
     {% endif %}
  
-  </header>
-
+  <!-- </header> -->
+</div>
     <div id='navigation'>                      
         {% if paginate %}
-        <div  style="background-color: #E8A75D; overflow: auto; ">
+        <div  style="background-color: #E8A75D; ">
         <div class="clearfix"></div>
         {% for i in page_range %}
         {% if i == 1%}       
