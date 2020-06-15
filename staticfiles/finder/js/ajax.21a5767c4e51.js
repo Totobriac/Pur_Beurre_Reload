@@ -143,7 +143,7 @@ $(".nav_button_sub").on("click", function(event) {
         type: "POST",
         data:{
             'query': query,            
-            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()            
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),            
         },        
         datatype:'html',        
         success: function(resp) {                                   

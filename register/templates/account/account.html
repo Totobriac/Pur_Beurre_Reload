@@ -6,7 +6,7 @@
 
   <div class="col-lg-12">
     
-    <h2 class="intro-text text-center" style="color: beige;">Bienvenue sur ton compte <span style="color:#C45525;">{{ user }}</span></h2>    
+    <h2 class="intro-text text-center" style="color: beige;">Bienvenue sur ton compte <span style="color: red;">{{ user }}</span></h2>    
     {% if saved_list %}
     <div class='w-75 mx-auto  row d-flex justify-content-around mb-3'>
       <h3 class="intro-text text-center account_items mt-0" style="color: beige;">Produit recherché</h3>      
@@ -59,7 +59,9 @@
           </div>
           <div class="col-md-1 my-auto mx-auto">
             
-          <button type ='button' class=' btn substitut' value='{{ saved.id }}'>{% csrf_token %}<i class='fas fa-trash-alt'></i></button>              
+          <button type ='button' class=' btn substitut' value='{{ saved.id }}'>{% csrf_token %}<i class='fas fa-trash-alt'></i></button>   
+                     
+                     
           </div>
         </div>
       </div>
@@ -78,6 +80,8 @@
     </div>
     {% endif %}
  
+
+
 </div>
     <div id='navigation'>                      
         {% if paginate %}

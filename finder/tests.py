@@ -115,22 +115,33 @@ class TestModels(TestCase):
 class TestSearch(TestCase):
     # check user queries
     def test_Search(self):
-        # check with unformatted query
+        # test with unformatted query
         url = reverse('finder:search')
         url_with_param = "{}?{}".format(url, 'query=GAzpacho')
-        self.response = self.client.post(url_with_param)
+        self.response = self.client.get(url_with_param)
         self.assertEqual(self.response.status_code, 200)
 
     def test_EmptySearch(self):
         # test for empty query
         url = reverse('finder:search')
         url_with_param = "{}?{}".format(url, 'query=')
-        self.response = self.client.post(url_with_param)
+        self.response = self.client.get(url_with_param)
         self.assertEqual(self.response.status_code, 200)
 
     def test_BogusSearch(self):
         # test for bogus query
         url = reverse('finder:search')
         url_with_param = "{}?{}".format(url, 'query=dzdsfsdfgsvs')
-        self.response = self.client.post(url_with_param)
+        self.response = self.client.get(url_with_param)
         self.assertEqual(self.response.status_code, 200)
+
+
+class AddNewUser(TestCase):
+
+    def test_new_user_is_registered(self):
+        old_users = User.objects.count()
+        User.objects.create(username="Toto", email="toto@gmail.com")
+        new_users = User.objects.count()
+        self.assertEqual(new_users, old_users+1)
+
+

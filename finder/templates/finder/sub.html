@@ -15,6 +15,7 @@
             <img class="mx-auto" style="width:auto; height:auto; max-width:250px; max-height:250px; "
               src="{{ sub_product.picture }}">
           </div>
+          {% csrf_token %}
           <div class="card-body text-center">
             <h4 class="card-title" style="color:white">{{sub_product.real_name}}</h4>
             <hr class="divider1 my-1" />
@@ -27,7 +28,7 @@
             {% block nav-style %}{% endblock %}
             {% if user.is_authenticated %}
             <div class='sub_button'>            
-                <form class="add_btn" method='post'>{% csrf_token %}
+                <form class="add_btn" method='post'>
                 <button class='added btn' value= '{{product.id }} {{ sub_product.id }}' ><i class=' fas fa-save'></i></button>              
             </div>        
             {% endif %}

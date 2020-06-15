@@ -17,7 +17,7 @@
       <hr>      
     </div>    
   </header>
-
+  {% csrf_token %}
   <div class="row" style="background-color: #E8A75D;">
 
     {% for sub_product in products %}
@@ -44,7 +44,7 @@
             {% block nav-style %}{% endblock %}
             {% if user.is_authenticated %}
             <div class='sub_button'>            
-                <form class="add_btn" method='post'>{% csrf_token %}
+                <form class="add_btn" method='post'>
                 <button class='added btn' value= '{{product.id }} {{ sub_product.id }}' ><i class=' fas fa-save'></i></button>
                             
             </div>        
@@ -61,7 +61,7 @@
 
 <div id='navigation'>                      
   {% if paginate %}
-  <div  style="background-color: #E8A75D; overflow: auto; ">
+  <div  style="background-color: #E8A75D;  ">
   {% for i in page_range %}  
   {% if i == 1%}       
   <span><button class='btn nav_button_sub first ' value='{{ product.id }} {{ i }}'>{{i}}</button></span>
