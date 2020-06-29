@@ -197,14 +197,16 @@ def sub (request):
         }
         return render(request, 'finder/sub.html', context)
 
+
 def add(request):
     data = {'success': False} 
     if request.method=='POST':
-        product = request.POST.get('product')
+        product_id = request.POST.get('product_id')
+        sub_product_id = request.POST.get('sub_product_id')
         user = request.user       
-        splitted = product.split(' ')
-        sub_product = Product.objects.get(pk=(splitted[1]))
-        original_product = Product.objects.get(pk=(splitted[0]))       
+        sub_product = Product.objects.get(pk=int(sub_product_id))
+        original_product = Product.objects.get(pk=int(product_id))
+        print (sub_product, original_product)      
         p = SavedProduct(username= user, sub_product=sub_product, original_product = original_product)
         p.save()        
         data['success'] = True

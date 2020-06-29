@@ -144,4 +144,13 @@ class AddNewUser(TestCase):
         new_users = User.objects.count()
         self.assertEqual(new_users, old_users+1)
 
-
+class AddDeleteProduct(TestCase):   
+    
+    def setUp(self):
+        User.objects.create(username='Toto', email='toto@gmail.com')            
+    def test_add_product(self):       
+        old_count = SavedProduct.objects.count()
+        payload = {'product_id': 12, 'sub_product_id': 22}        
+        response = self.client.post(reverse('finder:add', kwargs=payload))
+        new_count = SavedProduct.objects.count()
+        self.assertEqual(new_count, old_count + 1)

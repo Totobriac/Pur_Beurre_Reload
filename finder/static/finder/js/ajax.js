@@ -19,28 +19,31 @@ $("#fav_list").on("click", ".substitut", function(event) {
     }); 
 });
 
-$(".row").on('click', ".added", function(event) {
-    let addedBtn = $(this);
-    console.log(addedBtn)
-    event.preventDefault();
-    event.stopPropagation();
-    var product = $(this).val();    
-    console.log(product)   
-    var url = '/finder/add/';   
-    $.ajax({        
-        url: url,        
-        type: "POST",
-        data:{
-            'product': product,            
-            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
-        },
-        datatype:'json',
-        success: function(data) {
-          if (data['success'])            
-          addedBtn.hide();             
-        }
-    }); 
+
+$(".row").on('click', '.sub_button', function(event) {
+  let addedBtn = $(this);
+  event.preventDefault();
+  event.stopPropagation();
+  var product_id = $(this).find('.product_id').val();
+  var sub_product_id = $(this).find('.sub_product_id').val(); 
+  console.log(product_id,sub_product_id)   
+  var url = '/finder/add/';   
+  $.ajax({        
+      url: url,        
+      type: "POST",
+      data:{
+          'product_id': product_id,
+          'sub_product_id': sub_product_id,            
+          'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+      },
+      datatype:'json',
+      success: function(data) {
+        if (data['success'])            
+        addedBtn.hide();             
+      }
+  }); 
 });
+
 
 
 (function(d, s, id) {

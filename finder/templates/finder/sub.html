@@ -28,9 +28,11 @@
             {% block nav-style %}{% endblock %}
             {% if user.is_authenticated %}
             <div class='sub_button'>            
-                <form class="add_btn" method='post'>
-                <button class='added btn' value= '{{product.id }} {{ sub_product.id }}' ><i class=' fas fa-save'></i></button>              
-            </div>        
+              <form class="add_btn" method='post'>
+              <input type="hidden" class="product_id" value="{{ product.id }}">
+              <input type="hidden" class="sub_product_id" value="{{ sub_product.id }}">
+              <button class='added btn'><i class='fas fa-save'></i></button>                                
+            </div>      
             {% endif %}
           </div>
         </div>
