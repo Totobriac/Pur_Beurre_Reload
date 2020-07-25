@@ -26,4 +26,4 @@ __*PostgreSQL must be installed on your system*__
 
 ### Live version:
 
-- https://puramanteca.herokuapp.com/
+- https://puramanteca.herokuappdos.com/
