@@ -5,5 +5,5 @@ app_name = 'register'
 urlpatterns = [
     path('account/', views.account, name='account'),
     path('account/nav/', views.nav, name='nav'),
-    path('delete/', views.delete, name='delete'),
+    path('delete/<int:product>/', views.delete, name='delete'),
 ]
