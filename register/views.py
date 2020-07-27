@@ -48,12 +48,9 @@ def account(request):
         return render(request, 'account/nav.html', context)              
     return render(request, 'account/account.html', context)
 
-def delete(request):
-    data = {'success': False} 
-    if request.method=='POST':
-        product = request.POST.get('product')
-        SavedProduct.objects.filter(pk=product).delete()    
-        data['success'] = True
+def delete(request, product):
+    data = {'success': True} 
+    SavedProduct.objects.filter(pk=product).delete()    
     return JsonResponse(data)
 
 def nav(request):        
