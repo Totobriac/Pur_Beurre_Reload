@@ -1,15 +1,10 @@
 $("#fav_list").on("click", ".substitut", function(event) {
     event.preventDefault();        
-    var product = $(this).val();               
-    var url = '/register/delete/';   
+    var product = $(this).val();      
     $.ajax({        
-        url: url,        
-        type: "POST",
-        data:{
-            'product': product,            
-            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
-        },
-        datatype:'json',
+        url: '/register/delete/' + product + '/',
+        product: product,        
+        type: "GET",
         success: function(data) {
           if (data['success'])                    
             $("#fav_list").load(" #fav_list > *");            
