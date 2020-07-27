@@ -144,13 +144,45 @@ class AddNewUser(TestCase):
         new_users = User.objects.count()
         self.assertEqual(new_users, old_users+1)
 
-class AddDeleteProduct(TestCase):   
-    
+class DeleteProduct(TestCase):
+
     def setUp(self):
-        User.objects.create(username='Toto', email='toto@gmail.com')            
-    def test_add_product(self):       
-        old_count = SavedProduct.objects.count()
-        payload = {'product_id': 12, 'sub_product_id': 22}        
-        response = self.client.post(reverse('finder:add', kwargs=payload))
-        new_count = SavedProduct.objects.count()
-        self.assertEqual(new_count, old_count + 1)
+        self.user = User.objects.create(username="Troy", email="troy@gmail.com")
+
+        self.prod = Product.objects.create(
+            name=['gazpacho'],
+            brand=['alvalle'],
+            nutrition_grade='a',
+            picture='https://static.openfoodfacts.org/images/products/541/018/803/1072/front_fr.30.400.jpg',
+            off_id=5410188031072,
+            categories=['aliments et boissons à base de végétaux', " aliments d'origine végétale", ' aliments à base de fruits et de légumes', ' plats préparés', ' soupes', ' réfrigérés', ' soupes de légumes', ' soupes froides', ' plats préparés réfrigérés', ' gaspacho', ' soupes réfrigérées'],
+            fat=2.6,
+            satured_fat=0.4,
+            sugars=3.1,
+            salt=0.66,
+            real_name='Gazpacho',
+            real_brand='Alvalle',
+        )
+
+        self.prod_2 = Product.objects.create(
+            name=['belvita'],
+            brand=['belvita', 'lu', 'mondelez'],
+            nutrition_grade='c',
+            picture='https://static.openfoodfacts.org/images/products/762/221/044/4141/front_fr.81.400.jpg',
+            off_id=7622210444141,
+            categories=['snacks', ' snacks sucrés', ' biscuits et gâteaux', ' biscuits', ' biscuits au chocolat'],
+            fat=15,
+            satured_fat=3.6,
+            sugars=21.0,
+            salt=0.6,
+            real_name='belvita',
+            real_brand='Belvita',
+        )
+        
+        SavedProduct.objects.create(username=self.user, sub_product=self.prod, original_product=self.prod_2)
+
+    def test_delete_saved_product(self):
+        old_count=SavedProduct.objects.count()
+        delete(request, 1)
+        new_count=SavedProduct.objects.count()
+        self.assertEqual(old_count, new_count+1)
